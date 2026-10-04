@@ -1,25 +1,28 @@
 package com.jtspringproject.JtSpringProject.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@Entity(name="CATEGORY")
+@Entity
+@Table(name = "CATEGORY")
 public class Category {
+
 	@Id
 	@Column(name = "category_id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+
 	private String name;
-	
-	public int getId() {
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -30,5 +33,4 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 }

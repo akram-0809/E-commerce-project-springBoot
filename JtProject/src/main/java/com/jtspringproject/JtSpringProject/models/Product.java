@@ -1,43 +1,49 @@
 package com.jtspringproject.JtSpringProject.models;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
-@Entity(name="PRODUCT")
+@Entity
+@Table(name = "PRODUCT")
 public class Product {
+
 	@Id
 	@Column(name = "product_id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+
 	private String name;
-	
+
 	private String image;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "category_id",referencedColumnName = "category_id")
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "category_id", referencedColumnName = "category_id")
 	private Category category;
-	
-	private int quantity;
-	
-	private int price;
-	
-	private int weight;
-	
+
+	private Integer quantity;
+
+	private Integer price;
+
+	private Integer weight;
+
 	private String description;
 
-	public int getId() {
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
+	private User customer;
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -57,7 +63,6 @@ public class Product {
 		this.image = image;
 	}
 
-
 	public Category getCategory() {
 		return category;
 	}
@@ -66,27 +71,27 @@ public class Product {
 		this.category = category;
 	}
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 
-	public int getWeight() {
+	public Integer getWeight() {
 		return weight;
 	}
 
-	public void setWeight(int weight) {
+	public void setWeight(Integer weight) {
 		this.weight = weight;
 	}
 
@@ -97,10 +102,12 @@ public class Product {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	@ManyToOne
-    @JoinColumn(name = "customer_id")
-    private User customer;
-	
-	
+
+	public User getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(User customer) {
+		this.customer = customer;
+	}
 }
