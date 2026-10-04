@@ -2,7 +2,7 @@
 <%@page import="java.util.*"%>
 <%@page import="java.text.*"%>
 <%@page import ="java.io.FileOutputStream" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <%@page import=" java.io.ObjectOutputStream" %>
 <!doctype html>

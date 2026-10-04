@@ -1,41 +1,37 @@
 package com.jtspringproject.JtSpringProject.services;
 
-import com.jtspringproject.JtSpringProject.dao.cartDao;
-import com.jtspringproject.JtSpringProject.models.Cart;
-import com.jtspringproject.JtSpringProject.models.Category;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.jtspringproject.JtSpringProject.models.Cart;
+import com.jtspringproject.JtSpringProject.models.User;
+import com.jtspringproject.JtSpringProject.repository.CartRepository;
 
 @Service
-public class cartService {
-    @Autowired
-    private cartDao cartDao;
+public class CartService {
 
-    public Cart addCart(Cart cart) {
-        return cartDao.addCart(cart);
-    }
+	@Autowired
+	private CartRepository cartRepository;
 
-    //    public Cart getCart(int id)
-//    {
-//        return cartDao.getCart(id);
-//    }
-    public List<Cart> getCarts() {
-        return this.cartDao.getCarts();
-    }
+	public Cart addCart(Cart cart) {
+		return cartRepository.save(cart);
+	}
 
-    public void updateCart(Cart cart) {
-        cartDao.updateCart(cart);
-    }
+	public List<Cart> getCarts() {
+		return cartRepository.findAll();
+	}
 
-    public void deleteCart(Cart cart) {
-        cartDao.deleteCart(cart);
-    }
+	public List<Cart> getCartsByCustomer(User customer) {
+		return cartRepository.findByCustomer(customer);
+	}
 
-//    pubiic List<Cart> getCartByUserId(int customer_id){
-//        return cartDao.getCartsByCustomerID(customer_id);
-//    }
+	public void updateCart(Cart cart) {
+		cartRepository.save(cart);
+	}
 
-
+	public void deleteCart(Cart cart) {
+		cartRepository.delete(cart);
+	}
 }

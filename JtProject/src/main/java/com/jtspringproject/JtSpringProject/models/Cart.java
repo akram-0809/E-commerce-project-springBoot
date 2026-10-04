@@ -1,72 +1,41 @@
 package com.jtspringproject.JtSpringProject.models;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
-
-@Entity(name="CART")
+@Entity
+@Table(name = "CART")
 public class Cart {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name="customer_id")
-    private User customer;
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
+	private User customer;
 
-//    @ManyToMany
-//    @JoinTable(
-//            joinColumns = @JoinColumn(name = "cart_id"),
-//            inverseJoinColumns = @JoinColumn(name = "product_id")
-//    )
-//    private List<Product> products;
+	public Cart() {
+	}
 
+	public Integer getId() {
+		return id;
+	}
 
-    public Cart() {
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public User getCustomer() {
+		return customer;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-
-    public User getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(User customer) {
-        this.customer = customer;
-    }
-
-//    public List<Product> getProducts() {
-//        return products;
-//    }
-
-//    public List<Product> getProductsByUser(int customer_id ) {
-//        List<Product> userProducts = new ArrayList<Product>();
-//        for (Product product : products) {
-//            if (product.getCustomer().getId() == customer_id) {
-//                userProducts.add(product);
-//            }
-//        }
-//        return userProducts;
-//    }
-
-//    public void setProducts(List<Product> products) {
-//        this.products = products;
-//    }
-
-//    public void addProduct(Product product) {
-//        products.add(product);
-//    }
-//
-//    public void removeProduct(Product product) {
-//        products.remove(product);
-//    }
+	public void setCustomer(User customer) {
+		this.customer = customer;
+	}
 }

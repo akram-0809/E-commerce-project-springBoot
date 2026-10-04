@@ -5,33 +5,43 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jtspringproject.JtSpringProject.dao.categoryDao;
 import com.jtspringproject.JtSpringProject.models.Category;
-
-import net.bytebuddy.dynamic.DynamicType.Builder.InnerTypeDefinition;
+import com.jtspringproject.JtSpringProject.repository.CategoryRepository;
 
 @Service
-public class categoryService {
+public class CategoryService {
+
 	@Autowired
-	private categoryDao categoryDao;
-	
+	private CategoryRepository categoryRepository;
+
 	public Category addCategory(String name) {
-		return this.categoryDao.addCategory(name);
-	}
-	
-	public List<Category> getCategories(){
-		return this.categoryDao.getCategories();
-	}
-	
-	public Boolean deleteCategory(int id) {
-		return this.categoryDao.deletCategory(id);
-	}
-	
-	public Category updateCategory(int id,String name) {
-		return this.categoryDao.updateCategory(id, name);
+		Category category = new Category();
+		category.setName(name);
+		return categoryRepository.save(category);
 	}
 
-	public Category getCategory(int id) {
-		return this.categoryDao.getCategory(id);
+	public List<Category> getCategories() {
+		return categoryRepository.findAll();
+	}
+
+	public boolean deleteCategory(Integer id) {
+		if (categoryRepository.existsById(id)) {
+			categoryRepository.deleteById(id);
+			return true;
+		}
+		return false;
+	}
+
+	public Category updateCategory(Integer id, String name) {
+		Category category = categoryRepository.findById(id).orElse(null);
+		if (category != null) {
+			category.setName(name);
+			return categoryRepository.save(category);
+		}
+		return null;
+	}
+
+	public Category getCategory(Integer id) {
+		return categoryRepository.findById(id).orElse(null);
 	}
 }
